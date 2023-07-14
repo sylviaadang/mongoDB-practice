@@ -1,0 +1,399 @@
+Last login: Thu Jul 13 18:50:17 on ttys051
+sylviadang@sylvias-Air sylviadang % mongosh "mongodb+srv://mongo.dgqdjaq.mongodb.net/" --apiVersion 1 --username sylviaadang
+Enter password: ****
+Current Mongosh Log ID:	64b0aae77655cd1206d8644c
+Connecting to:		mongodb+srv://<credentials>@mongo.dgqdjaq.mongodb.net/?appName=mongosh+1.6.0
+Using MongoDB:		6.0.6 (API Version 1)
+Using Mongosh:		1.6.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+Atlas atlas-1blp5p-shard-0 [primary] test> show dbs
+admin  340.00 KiB
+local  818.71 MiB
+Atlas atlas-1blp5p-shard-0 [primary] test> use my_first_db
+switched to db my_first_db
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> show dbs
+admin  340.00 KiB
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.createCollection('students')
+{ ok: 1 }
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.insertOne( {name: "Sylvia", home_state: "ca", lucky_number: 7, birthday: {month: 6, day: 27, year: 2000}} )
+{
+  acknowledged: true,
+  insertedId: ObjectId("64b0bfee7655cd1206d8644d")
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.insertOne( {name: "Will", home_state: 'ca', lucky_number: 6, birthdat: {month: 2, day: 18, year: 2000 }})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64b0c0247655cd1206d8644e")
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.insertOne ( {name: "Muri", home_state: 'ca', lucky_number: 10, birthday: {month: 5, day: 10, year: 2000 }})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64b0c0627655cd1206d8644f")
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.insertOne ( {name: "Steph", home_state: 'ca', lucky_number: 5, birthday: {month: 10, day:21, year: 1997 }})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64b0c0937655cd1206d86450")
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.insertOne ( {name: "Wendy", home_state: 'ca', lucky_number: 8, birthday: {month:11, day:2, year:1971 }})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64b0c0d87655cd1206d86451")
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.find()
+[
+  {
+    _id: ObjectId("64b0bfee7655cd1206d8644d"),
+    name: 'Sylvia',
+    home_state: 'ca',
+    lucky_number: 7,
+    birthday: { month: 6, day: 27, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0247655cd1206d8644e"),
+    name: 'Will',
+    home_state: 'ca',
+    lucky_number: 6,
+    birthdat: { month: 2, day: 18, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0627655cd1206d8644f"),
+    name: 'Muri',
+    home_state: 'ca',
+    lucky_number: 10,
+    birthday: { month: 5, day: 10, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0937655cd1206d86450"),
+    name: 'Steph',
+    home_state: 'ca',
+    lucky_number: 5,
+    birthday: { month: 10, day: 21, year: 1997 }
+  },
+  {
+    _id: ObjectId("64b0c0d87655cd1206d86451"),
+    name: 'Wendy',
+    home_state: 'ca',
+    lucky_number: 8,
+    birthday: { month: 11, day: 2, year: 1971 }
+  }
+]
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.find( {$or: [ {home_state:"ca" }, {home_state:"wa"} ] } )
+[
+  {
+    _id: ObjectId("64b0bfee7655cd1206d8644d"),
+    name: 'Sylvia',
+    home_state: 'ca',
+    lucky_number: 7,
+    birthday: { month: 6, day: 27, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0247655cd1206d8644e"),
+    name: 'Will',
+    home_state: 'ca',
+    lucky_number: 6,
+    birthdat: { month: 2, day: 18, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0627655cd1206d8644f"),
+    name: 'Muri',
+    home_state: 'ca',
+    lucky_number: 10,
+    birthday: { month: 5, day: 10, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0937655cd1206d86450"),
+    name: 'Steph',
+    home_state: 'ca',
+    lucky_number: 5,
+    birthday: { month: 10, day: 21, year: 1997 }
+  },
+  {
+    _id: ObjectId("64b0c0d87655cd1206d86451"),
+    name: 'Wendy',
+    home_state: 'ca',
+    lucky_number: 8,
+    birthday: { month: 11, day: 2, year: 1971 }
+  }
+]
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.find( {lucky_number: {$gt: 3}}
+...
+... )
+[
+  {
+    _id: ObjectId("64b0bfee7655cd1206d8644d"),
+    name: 'Sylvia',
+    home_state: 'ca',
+    lucky_number: 7,
+    birthday: { month: 6, day: 27, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0247655cd1206d8644e"),
+    name: 'Will',
+    home_state: 'ca',
+    lucky_number: 6,
+    birthdat: { month: 2, day: 18, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0627655cd1206d8644f"),
+    name: 'Muri',
+    home_state: 'ca',
+    lucky_number: 10,
+    birthday: { month: 5, day: 10, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0937655cd1206d86450"),
+    name: 'Steph',
+    home_state: 'ca',
+    lucky_number: 5,
+    birthday: { month: 10, day: 21, year: 1997 }
+  },
+  {
+    _id: ObjectId("64b0c0d87655cd1206d86451"),
+    name: 'Wendy',
+    home_state: 'ca',
+    lucky_number: 8,
+    birthday: { month: 11, day: 2, year: 1971 }
+  }
+]
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update( {$set: {interests: ['coding', 'brunch', 'MondoDB']} )
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:72)
+
+> 1 | db.students.update( {$set: {interests: ['coding', 'brunch', 'MondoDB']} )
+    |                                                                         ^
+  2 |
+
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update( {$set: {interests: ['coding', 'brunch', 'MondoDB'] } } )
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 1 (Collection.update)
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateMany( {$set: {interests: ['coding', 'brunch', 'MongoDB' ] }} )
+MongoInvalidArgumentError: Update document requires atomic operators
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update( {}, { $set: {interests: ['coding', 'brunch', 'MongoDB' ] } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update( {} , {$set: {interests: ['coding', 'brunch', 'MongoDB' ] }, false, true )
+Uncaught:
+SyntaxError: Unexpected keyword 'false'. (1:80)
+
+> 1 | db.students.update( {} , {$set: {interests: ['coding', 'brunch', 'MongoDB' ] }, false, true )
+    |                                                                                 ^
+  2 |
+
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update( {} , {$set: {interests: ['coding', 'brunch', 'MongoDB' ] }}, false, true)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.find()
+[
+  {
+    _id: ObjectId("64b0bfee7655cd1206d8644d"),
+    name: 'Sylvia',
+    home_state: 'ca',
+    lucky_number: 7,
+    birthday: { month: 6, day: 27, year: 2000 },
+    interests: [ 'coding', 'brunch', 'MongoDB' ]
+  },
+  {
+    _id: ObjectId("64b0c0247655cd1206d8644e"),
+    name: 'Will',
+    home_state: 'ca',
+    lucky_number: 6,
+    birthdat: { month: 2, day: 18, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0627655cd1206d8644f"),
+    name: 'Muri',
+    home_state: 'ca',
+    lucky_number: 10,
+    birthday: { month: 5, day: 10, year: 2000 }
+  },
+  {
+    _id: ObjectId("64b0c0937655cd1206d86450"),
+    name: 'Steph',
+    home_state: 'ca',
+    lucky_number: 5,
+    birthday: { month: 10, day: 21, year: 1997 }
+  },
+  {
+    _id: ObjectId("64b0c0d87655cd1206d86451"),
+    name: 'Wendy',
+    home_state: 'ca',
+    lucky_number: 8,
+    birthday: { month: 11, day: 2, year: 1971 }
+  }
+]
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update( {} , {$set: {interests: ['coding', 'brunch', 'MongoDB' ] }}, {upsert: false, multi: true})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.find()
+[
+  {
+    _id: ObjectId("64b0bfee7655cd1206d8644d"),
+    name: 'Sylvia',
+    home_state: 'ca',
+    lucky_number: 7,
+    birthday: { month: 6, day: 27, year: 2000 },
+    interests: [ 'coding', 'brunch', 'MongoDB' ]
+  },
+  {
+    _id: ObjectId("64b0c0247655cd1206d8644e"),
+    name: 'Will',
+    home_state: 'ca',
+    lucky_number: 6,
+    birthdat: { month: 2, day: 18, year: 2000 },
+    interests: [ 'coding', 'brunch', 'MongoDB' ]
+  },
+  {
+    _id: ObjectId("64b0c0627655cd1206d8644f"),
+    name: 'Muri',
+    home_state: 'ca',
+    lucky_number: 10,
+    birthday: { month: 5, day: 10, year: 2000 },
+    interests: [ 'coding', 'brunch', 'MongoDB' ]
+  },
+  {
+    _id: ObjectId("64b0c0937655cd1206d86450"),
+    name: 'Steph',
+    home_state: 'ca',
+    lucky_number: 5,
+    birthday: { month: 10, day: 21, year: 1997 },
+    interests: [ 'coding', 'brunch', 'MongoDB' ]
+  },
+  {
+    _id: ObjectId("64b0c0d87655cd1206d86451"),
+    name: 'Wendy',
+    home_state: 'ca',
+    lucky_number: 8,
+    birthday: { month: 11, day: 2, year: 1971 },
+    interests: [ 'coding', 'brunch', 'MongoDB' ]
+  }
+]
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: 64b0bfee7655cd1206d8644d}, {$set: {interests: ['coding','brunch','MongoDB', 'eat']}}} )
+Uncaught:
+SyntaxError: Identifier directly after number. (1:31)
+
+> 1 | db.students.updateOne( {_id: 64b0bfee7655cd1206d8644d}, {$set: {interests: ['coding','brunch','MongoDB', 'eat']}}} )
+    |                                ^
+  2 |
+
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0bfee7655cd1206d8644d"), {$set: {interest: ['coding','brunch','MongoDB', 'eat']}}} )
+Uncaught:
+SyntaxError: Unexpected token (1:67)
+
+> 1 | db.students.updateOne( {_id: ObjectId("64b0bfee7655cd1206d8644d"), {$set: {interest: ['coding','brunch','MongoDB', 'eat']}}} )
+    |                                                                    ^
+  2 |
+
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0bfee7655cd1206d8644d")}, {$set: {interests: ['coding','brunch','MongoDB', 'eat'] }}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:126)
+
+> 1 | db.students.updateOne( {_id: ObjectId("64b0bfee7655cd1206d8644d")}, {$set: {interests: ['coding','brunch','MongoDB', 'eat'] }}})
+    |                                                                                                                               ^
+  2 |
+
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0bfee7655cd1206d8644d")}, {$set: {interests: ['coding','brunch','MongoDB', 'eat'] }})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0c0247655cd1206d8644e")}, {$set: {interests: ['coding','brunch','MongoDB', 'gym'] }} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0c0627655cd1206d8644f")}, {$set: {interests: ['coding', 'brunch', 'MongoDB', 'raving'] }} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0c0937655cd1206d86450")}, {$set: {interests: ['coding','brunch', 'MongoDB', 'sleep'] }} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0c0d87655cd1206d86451")}, {$set: {interests: ['coding','brunch','MongoDB', 'eat'] }} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne( {_id: ObjectId("64b0c0d87655cd1206d86451")}, {$set: {interests: ['coding','brunch','MongoDB', 'tax'] }} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne({_id: ObjectId("64b0c0d87655cd1206d86451")}, {$pull: {interests: ['tax']}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.remove({name: "Sylvia"})
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 1 }
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.remove({lucky_number: {$gt: 5}})
+{ acknowledged: true, deletedCount: 3 }
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update({}, {$set: {number_of_belts: 0}}, false, true)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.updateOne({home_state: 'wa'}, {$inc: {number_of_belts: 1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update({}, {$set: {updated_on: {$type:date}}})
+ReferenceError: date is not defined
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db> db.students.update({}, {$set: {updated_on: {$type: 'date'}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-1blp5p-shard-0 [primary] my_first_db>
